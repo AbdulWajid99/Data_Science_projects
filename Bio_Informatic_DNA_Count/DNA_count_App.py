@@ -27,12 +27,14 @@ st.header('Enter DNA sequence')
 
 # dummy data
 sequence_input = ">DNA Query 2\nGAACACGTGGAGGCAAACAGGAAGGTGAAGAAGAACTTATCCTATCAGGACGGAAGGTCCTGTGCTCGGG\nATCTTCCAGACGTCGCGACTCTAAATTGCCCCCTCTGAGGTCAAGGAACACAAGATGGTTTTGGAAATGC\nTGAACCCGATACATTATAACATCACCAGCATCGTGCCTGAAGCCATGCCTGCTGCCACCATGCCAGTCCT"
-
+# covert into single string
 sequence = st.text_area("Sequence input", sequence_input, height=250)
 sequence = sequence.splitlines()  # split into lists
 sequence = sequence[1:]  # Skips the sequence name (first line)
 sequence = ''.join(sequence)  # Concatenates list to string
 
+
+# gap
 st.write("""
 ***
 """)
@@ -61,28 +63,27 @@ def DNA_nucleotide_count(seq):
 
 X = DNA_nucleotide_count(sequence)
 X
-### 2. Print text
+# 2. Print text
 st.subheader('2. Print text')
 st.write('There are  ' + str(X['A']) + ' adenine (A)')
 st.write('There are  ' + str(X['T']) + ' thymine (T)')
 st.write('There are  ' + str(X['G']) + ' guanine (G)')
 st.write('There are  ' + str(X['C']) + ' cytosine (C)')
 
-### 3. Display DataFrame
+# 3. Display DataFrame
 st.subheader('3. Display DataFrame')
+
 df = pd.DataFrame.from_dict(X, orient='index')
 df = df.rename({0: 'count'}, axis='columns')
 df.reset_index(inplace=True)
 df = df.rename(columns={'index': 'nucleotide'})
 st.write(df)
 
-### 4. Display Bar Chart using Altair
+# 4. Display Bar Chart using Altair
 st.subheader('4. Display Bar chart')
 p = alt.Chart(df).mark_bar().encode(
     x='nucleotide',
-    y='count'
-)
+    y='count')
 p = p.properties(
-    width=alt.Step(80)  # controls width of bar.
-)
+    width=alt.Step(80))  # controls width of bar.
 st.write(p)
