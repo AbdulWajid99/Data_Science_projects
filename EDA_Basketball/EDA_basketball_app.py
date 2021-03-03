@@ -1,4 +1,3 @@
-import base64
 import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
@@ -55,10 +54,9 @@ st.write('Data Dimension: ' + str(df_selected_team.shape[0]) + ' rows and ' + st
     df_selected_team.shape[1]) + ' columns.')
 st.dataframe(df_selected_team)
 
+
+
 # Download NBA player stats data
-# https://discuss.streamlit.io/t/how-to-download-file-in-streamlit/1806
-
-
 def filedownload(df):
     csv = df.to_csv(index=False)
     # strings <-> bytes conversions
